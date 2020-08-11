@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 
 class TransactionRequest(
     val id: Int,
-    private val userId: Int,
+    private val userId: String,
     private val originCurrency: String,
     private val originValue: Float,
     private val destinyCurrency: String,

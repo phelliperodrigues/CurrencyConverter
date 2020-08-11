@@ -7,7 +7,7 @@ import org.joda.time.DateTime
  */
 data class Transaction (
     val id: Int,
-    val userId: Int,
+    val userId: String,
     val originCurrency: String,
     val originValue: Float,
     val destinyCurrency: String,

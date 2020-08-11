@@ -25,7 +25,7 @@ class TransactionController(
 
     }
 
-    private fun registerTransaction(ctx: Context): TransactionResponse = try{
+    fun registerTransaction(ctx: Context): TransactionResponse = try{
         ctx.bodyAsClass(TransactionRequest::class.java).let {
             logger.info("Save transaction with id ${it.id}")
             ctx.status(HttpStatus.CREATED_201)
@@ -37,7 +37,7 @@ class TransactionController(
             message = ex.message.toString())
     }
 
-    private fun listTransactions(ctx: Context): List<TransactionResponse> {
+    fun listTransactions(ctx: Context): List<TransactionResponse> {
         logger.info("Find all Transactions")
         return transactionService.findAll().map { TransactionResponse.toResponse(it) }.also {
             ctx.status(HttpStatus.OK_200)

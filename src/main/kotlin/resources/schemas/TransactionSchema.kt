@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.jodatime.datetime
  */
 object TransactionSchema: Table() {
     val id = integer("id").autoIncrement()
-    val userId = integer("userId")
+    val userId = varchar("userId", 50)
     val originCurrency = varchar("originCurrency",3)
     val originValue = float("originValue")
     val destinyCurrency = varchar("destinyCurrency",3)

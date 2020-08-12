@@ -24,21 +24,6 @@ class TransactionControllerTest {
     private val transactionController = TransactionController(transactionServiceMock)
 
     @Test
-    fun should_return_transaction() {
-        every { ctxMock.bodyAsClass(TransactionRequest::class.java) } returns transactionRequest
-        every { transactionServiceMock.save(transactionRequest.toModel()) } returns generateTransaction(
-            transactionRequest
-        )
-
-        val registerTransaction = transactionController.registerTransaction(ctxMock)
-
-        Assertions.assertNotNull(registerTransaction)
-        verify { ctxMock.status(HttpStatus.CREATED_201) }
-        verify { ctxMock.bodyAsClass(TransactionRequest::class.java) }
-        verify { transactionServiceMock.save(transactionRequest.toModel()) }
-    }
-
-    @Test
     fun should_return_list_transactions() {
         every { transactionServiceMock.findAll() } returns listOf(generateTransaction(transactionRequest))
 
@@ -47,6 +32,19 @@ class TransactionControllerTest {
         assertThat(1).isEqualTo(registerTransactions.size)
         verify { ctxMock.status(HttpStatus.OK_200) }
         verify { transactionServiceMock.findAll() }
+
+    }
+
+    @Test
+    fun should_return_list_transactions_by_user_id() {
+        every { ctxMock.pathParam("userId") } returns "user01"
+        every { transactionServiceMock.findAllByUserId(any()) } returns listOf(generateTransaction(transactionRequest))
+
+        val registerTransactions = transactionController.listTransactionsByUserId(ctxMock)
+
+        assertThat(1).isEqualTo(registerTransactions.size)
+        verify { ctxMock.status(HttpStatus.OK_200) }
+        verify { transactionServiceMock.findAllByUserId("user01") }
 
     }
 

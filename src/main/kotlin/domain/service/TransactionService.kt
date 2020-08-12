@@ -26,4 +26,8 @@ class TransactionService(
         return transactionRepository.findAll()
     }
 
+    override fun findAllByUserId(userId: String): List<Transaction> {
+        return transactionRepository.findAllByUserId(userId)
+    }
+
 }

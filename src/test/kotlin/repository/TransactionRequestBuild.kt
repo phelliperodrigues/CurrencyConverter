@@ -9,7 +9,6 @@ class TransactionRequestBuild {
     private val originCurrency: String = "BRL"
     private val originValue: Float = 2.50F
     private val destinyCurrency: String = "USD"
-    private val conversionTax: Float = 3.2F
 
     companion object {
         fun build(transaction: TransactionRequestBuild = TransactionRequestBuild()): TransactionRequest =
@@ -18,8 +17,7 @@ class TransactionRequestBuild {
                 userId = transaction.userId,
                 originCurrency = transaction.originCurrency,
                 originValue = transaction.originValue,
-                destinyCurrency = transaction.destinyCurrency,
-                conversionTax = transaction.conversionTax
+                destinyCurrency = transaction.destinyCurrency
             )
     }
 }

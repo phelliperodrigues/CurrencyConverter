@@ -34,6 +34,15 @@ class TransactionServiceTest {
         verify { transactionRepositoryMock.findAll() }
     }
 
+    @Test
+    fun should_return_list_transactions_by_user_id() {
+        every { transactionRepositoryMock.findAllByUserId(any()) } returns listOf(transactionBuild)
+        val transactions = transactionService.findAllByUserId("user01")
+
+        assertThat(transactions.size).isGreaterThan(0)
+        verify { transactionRepositoryMock.findAllByUserId("user01") }
+    }
+
     private fun generateTransaction(transaction: Transaction) = transaction.copy()
 
 }

@@ -3,6 +3,7 @@ package resources.repositories
 import domain.repository.Repository
 import domain.entities.Transaction
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
@@ -12,7 +13,7 @@ import resources.schemas.TransactionSchema
 /**
  * Transaction Repository implementation
  */
-class TransactionRepository: Repository<Transaction> {
+class TransactionRepository : Repository<Transaction> {
 
     private val logger = LoggerFactory.getLogger(TransactionRepository::class.java)
 
@@ -27,7 +28,7 @@ class TransactionRepository: Repository<Transaction> {
 
         }
         logger.info("Save entity with success")
-        entity.copy(id= result[TransactionSchema.id])
+        entity.copy(id = result[TransactionSchema.id])
 
     }
 
@@ -36,5 +37,11 @@ class TransactionRepository: Repository<Transaction> {
             it.toTransaction()
         }.toList()
 
+    }
+
+    override fun findAllByUserId(userId: String): List<Transaction> = transaction {
+        TransactionSchema.select{ TransactionSchema.userId eq userId }.map {
+            it.toTransaction()
+        }.toList()
     }
 }

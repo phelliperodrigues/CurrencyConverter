@@ -49,6 +49,7 @@ dependencies {
             'org.jetbrains.kotlin:kotlin-stdlib-jdk8',
             'org.slf4j:slf4j-simple:1.7.26',
             'org.jetbrains.exposed:exposed:0.13.7',
+            'org.jetbrains.exposed:exposed-jdbc:0.20.3',
             'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8',
             'org.koin:koin-core:2.0.0-GA4',
             'org.jetbrains.kotlin:kotlin-reflect:1.3.40',

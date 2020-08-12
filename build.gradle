@@ -3,6 +3,7 @@ plugins {
 }
 
 apply plugin: 'application'
+mainClassName = 'application.Main'
 
 group 'org.example'
 version '1.0-SNAPSHOT'

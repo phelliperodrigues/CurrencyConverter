@@ -3,6 +3,7 @@ package application.web
 import application.web.controllers.TransactionController
 import application.web.errors.HandlerError
 import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.get
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -22,7 +23,12 @@ object Init: KoinComponent {
             SchemaUtils.create(TransactionSchema)
         }
 
-        val app = Javalin.create().start(7000)
+        val port: Int = System.getenv("PORT")?.toIntOrNull() ?: 7000
+
+        val app = Javalin.create().apply {
+            exception(Exception::class.java) { e, _ -> e.printStackTrace() }
+            error(404) { ctx -> ctx.result("Not found") }
+        }.start(port)
 
         app.routes {
             registerController.router()

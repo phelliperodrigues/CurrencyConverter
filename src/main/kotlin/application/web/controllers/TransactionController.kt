@@ -18,10 +18,13 @@ class TransactionController(
     private val logger = LoggerFactory.getLogger(TransactionController::class.java)
 
     fun router() {
+        get("/") { ctx ->
+            ctx.status(200).result("Hello CurrencyConverter!")
+        }
+
         path("/transaction") {
             post { ctx -> ctx.json(registerTransaction(ctx)) }
             get { ctx -> ctx.json(listTransactions(ctx)) }
-
         }
 
         path("/transaction/:userId") {

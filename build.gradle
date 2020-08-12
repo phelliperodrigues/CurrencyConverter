@@ -14,10 +14,35 @@ dependencies {
     implementation('org.jetbrains.kotlin:kotlin-stdlib:1.3.31')
 }
 
+sourceSets {
+    integrationTest{
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+        resources.srcDir file('src/integrationTest/resources')
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+}
+
 test {
     testLogging.showStandardStreams = true
     useJUnitPlatform()
 }
+
+task integrationTest(type: Test) {
+    description = 'executando integration test'
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
+
+check.dependsOn integrationTest
+
+integrationTest.mustRunAfter test
 
 dependencies {
 

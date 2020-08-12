@@ -13,7 +13,7 @@ object Main {
 
     }
 
-    private fun startApplication(): Javalin{
+    fun startApplication(): Javalin{
         startKoin {
             modules(modulesAll)
         }

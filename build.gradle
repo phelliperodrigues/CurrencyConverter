@@ -2,16 +2,14 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
 }
 
+apply plugin: 'application'
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
     jcenter()
-}
-
-dependencies {
-    implementation('org.jetbrains.kotlin:kotlin-stdlib:1.3.31')
 }
 
 sourceSets {
@@ -45,8 +43,9 @@ check.dependsOn integrationTest
 integrationTest.mustRunAfter test
 
 dependencies {
-
-    implementation ('org.jetbrains.kotlin:kotlin-stdlib-jdk8',
+    implementation (
+            'org.jetbrains.kotlin:kotlin-stdlib:1.3.31',
+            'org.jetbrains.kotlin:kotlin-stdlib-jdk8',
             'org.slf4j:slf4j-simple:1.7.26',
             'org.jetbrains.exposed:exposed:0.13.7',
             'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8',
@@ -81,3 +80,6 @@ jar {
 
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
+
+task stage(dependsOn: ['build', 'clean', 'jar'])
+build.mustRunAfter clean

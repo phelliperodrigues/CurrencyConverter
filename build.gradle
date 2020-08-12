@@ -55,12 +55,12 @@ dependencies {
             'io.javalin:javalin:3.7.0',
             'com.h2database:h2:1.4.197',
             'org.jetbrains.exposed:exposed-jodatime:0.24.1',
-            'khttp:khttp:1.0.0'
+            'khttp:khttp:1.0.0',
+            'com.zaxxer:HikariCP:3.4.5'
     )
 
-    testImplementation ('org.junit.jupiter:junit-jupiter:5.4.2',
-            'khttp:khttp:0.1.0',
-            'com.h2database:h2:1.4.197',
+    testImplementation (
+            'org.junit.jupiter:junit-jupiter:5.4.2',
             'org.assertj:assertj-core:3.11.1',
             'io.mockk:mockk:1.9.3'
     )

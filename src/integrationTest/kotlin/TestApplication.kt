@@ -8,6 +8,7 @@ import io.javalin.Javalin
 import khttp.responses.Response
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.koin.core.context.stopKoin
@@ -38,7 +39,7 @@ class TestApplication {
         createTransaction()
         val response = khttp.get(url = url + "transaction")
         val transactions = response.text.deserialize<List<TransactionResponse>>()
-        assertEquals(transactions.size, 1)
+        assertTrue(transactions.isNotEmpty())
         assertEquals(200,response.statusCode)
     }
 

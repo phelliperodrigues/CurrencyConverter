@@ -3,7 +3,6 @@ package application.web
 import application.web.controllers.TransactionController
 import application.web.errors.HandlerError
 import io.javalin.Javalin
-import io.javalin.apibuilder.ApiBuilder.get
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
@@ -17,7 +16,7 @@ object Init: KoinComponent {
     private val registerController: TransactionController by inject()
 
     fun start(): Javalin {
-        Database.connect("jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1", "org.h2.Driver")
+        Database.connect("jdbc:h2:mem:api", "org.h2.Driver")
         transaction {
             addLogger(StdOutSqlLogger)
             SchemaUtils.create(TransactionSchema)
